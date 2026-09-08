@@ -8,7 +8,9 @@ Realizar un programa C++ que simule una Lista Enlazada Cola (Linked List).
 Una Lista Enlazada (Linked List) es una estructura de datos en donde cada nodo apunta a uno siguiente y de esta manera se mantiene un enlace entre los nodos. Para nuestro caso, haremos el problema un poco más real exigiendo que al insertar cada nodo, este se inserte de manera ordenada (ascendente) de modo que los nodos se indexen según su dato. 
 
 La Lista Enlazada (Linked List) tiene la siguiente forma para los nodos:
-struct LinkedList {
+
+struct LinkedList 
+{
 int dato;
 LinkedList *next;
 };
