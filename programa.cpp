@@ -19,6 +19,35 @@ int dato;
 LinkedList *next;
 };
 
+void insertarLista(LinkedList*& lista, int dato)
+{
+    LinkedList* nuevoNodo = new LinkedList();
+    nuevoNodo->dato = dato;
+
+    LinkedList* nodoActual = lista;
+    LinkedList* nodoAnterior = NULL;
+
+    while((nodoActual != NULL) && (nodoActual->dato < dato))
+    {
+        nodoAnterior = nodoActual;
+        nodoActual = nodoActual->next;
+    }
+
+    if(lista == nodoActual)
+    {
+        lista = nuevoNodo;
+    }
+    else
+    {
+        nodoAnterior->next = nuevoNodo;
+    }
+
+    nuevoNodo->next = nodoActual;
+
+    cout << "Se inserto el elemento " << dato << " a la lista.\n";
+    _getch();
+}
+
 int main()
 {
   return 0;
