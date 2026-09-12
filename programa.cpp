@@ -7,6 +7,7 @@ Grupo 1:
 - Octavio Ramirez - 1132995
 - Jose Pinales - 1133255
 - Christian Acosta - 1132698
+
 Realizar un programa C++ que simule una Lista Enlazada Cola (Linked List).
 */
 
