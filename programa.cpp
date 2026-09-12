@@ -119,7 +119,7 @@ void mostrarLista(LinkedList* pFrente)
 {
     if (pFrente == NULL)
     {
-        cout << "La lista esta vacia.\n";
+        cout << "\nLista vacia.\n";
         cout << "\nPresione cualquier tecla para continuar...";
         _getch();
         return;
@@ -197,7 +197,7 @@ int main()
     {
         limpiarConsola();
         cout << "-----";
-        cout << "\nMENU LISTA ENLAZADA (COLA)\n";
+        cout << "\nMENU LISTA ENLAZADA\n";
         cout << "1. Insertar \n";
         cout << "2. Buscar \n";
         cout << "3. Eliminar \n";
@@ -214,13 +214,31 @@ int main()
             break;
 
         case 2:
-            leerEntero("Ingrese el dato a buscar: ", dato);
-            buscarNodo(frente, dato);
+            if (frente == NULL)
+            {
+                cout << "\nLista vacia.\n";
+                cout << "\nPresione cualquier tecla para continuar...";
+                _getch();
+            }
+            else
+            {
+                leerEntero("Ingrese el dato a buscar: ", dato);
+                buscarNodo(frente, dato);
+            }
             break;
 
         case 3:
-            leerEntero("Ingrese el dato a eliminar: ", dato);
-            eliminarNodo(frente, dato);
+            if (frente == NULL)
+            {
+                cout << "\nLista vacia.\n";
+                cout << "\nPresione cualquier tecla para continuar...";
+                _getch();
+            }
+            else
+            {
+                leerEntero("Ingrese el dato a eliminar: ", dato);
+                eliminarNodo(frente, dato);
+            }
             break;
 
         case 4:
