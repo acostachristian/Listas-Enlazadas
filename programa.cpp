@@ -7,7 +7,6 @@ Grupo 1:
 - Octavio Ramirez - 1132995
 - Jose Pinales - 1133255
 - Christian Acosta - 1132698
-
 Realizar un programa C++ que simule una Lista Enlazada Cola (Linked List).
 */
 
@@ -21,12 +20,12 @@ struct LinkedList {
     LinkedList* next;
 };
 
-void insertarLista(LinkedList*& pLista, int pDato)
+void insertarLista(LinkedList*& pFrente, int pDato)
 {
     LinkedList* nuevoNodo = new LinkedList();
     nuevoNodo->dato = pDato;
 
-    LinkedList* nodoActual = pLista;
+    LinkedList* nodoActual = pFrente;
     LinkedList* nodoAnterior = NULL;
 
     while ((nodoActual != NULL) && (nodoActual->dato < pDato))
@@ -35,9 +34,9 @@ void insertarLista(LinkedList*& pLista, int pDato)
         nodoActual = nodoActual->next;
     }
 
-    if (pLista == nodoActual)
+    if (pFrente == nodoActual)
     {
-        pLista = nuevoNodo;
+        pFrente = nuevoNodo;
     }
     else
     {
@@ -52,9 +51,9 @@ void insertarLista(LinkedList*& pLista, int pDato)
 }
 
 // Busca un dato en la lista y avisa si lo encontro o no
-void buscarLista(LinkedList* pLista, int pDato)
+void buscarLista(LinkedList* pFrente, int pDato)
 {
-    LinkedList* nodoActual = pLista;
+    LinkedList* nodoActual = pFrente;
     bool encontrado = false;
 
     while ((nodoActual != NULL) && (encontrado == false))
@@ -81,9 +80,9 @@ void buscarLista(LinkedList* pLista, int pDato)
 }
 
 // Elimina un dato de la lista si existe
-void eliminarLista(LinkedList*& pLista, int pDato)
+void eliminarLista(LinkedList*& pFrente, int pDato)
 {
-    LinkedList* nodoActual = pLista;
+    LinkedList* nodoActual = pFrente;
     LinkedList* nodoAnterior = NULL;
 
     while ((nodoActual != NULL) && (nodoActual->dato != pDato))
@@ -98,9 +97,9 @@ void eliminarLista(LinkedList*& pLista, int pDato)
     }
     else
     {
-        if (pLista == nodoActual)
+        if (pFrente == nodoActual)
         {
-            pLista = nodoActual->next;
+            pFrente = nodoActual->next;
         }
         else
         {
@@ -115,9 +114,9 @@ void eliminarLista(LinkedList*& pLista, int pDato)
 }
 
 // Muestra los datos de la lista y si no hay nada dice que esta vacia
-void mostrarLista(LinkedList* pLista)
+void mostrarLista(LinkedList* pFrente)
 {
-    if (pLista == NULL)
+    if (pFrente == NULL)
     {
         cout << "La lista esta vacia.\n";
         cout << "\nPresione cualquier tecla para continuar...";
@@ -125,7 +124,7 @@ void mostrarLista(LinkedList* pLista)
         return;
     }
 
-    LinkedList* nodoActual = pLista;
+    LinkedList* nodoActual = pFrente;
 
     cout << "Lista Enlazada: ";
     while (nodoActual != NULL)
@@ -189,7 +188,7 @@ void leerEntero(string mensaje, int& pDato)
 // Menu Principal
 int main()
 {
-    LinkedList* lista = NULL;
+    LinkedList* frente = NULL;
     int opcion;
     int dato;
 
@@ -210,21 +209,21 @@ int main()
         {
         case 1:
             leerEntero("Ingrese el dato a insertar: ", dato);
-            insertarLista(lista, dato);
+            insertarLista(frente, dato);
             break;
 
         case 2:
             leerEntero("Ingrese el dato a buscar: ", dato);
-            buscarLista(lista, dato);
+            buscarLista(frente, dato);
             break;
 
         case 3:
             leerEntero("Ingrese el dato a eliminar: ", dato);
-            eliminarLista(lista, dato);
+            eliminarLista(frente, dato);
             break;
 
         case 4:
-            mostrarLista(lista);
+            mostrarLista(frente);
             break;
 
         case 5:
