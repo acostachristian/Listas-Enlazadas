@@ -21,7 +21,7 @@ struct LinkedList {
     LinkedList* next;
 };
 
-void insertarLista(LinkedList*& pFrente, int pDato)
+void insertarNodo(LinkedList*& pFrente, int pDato)
 {
     LinkedList* nuevoNodo = new LinkedList();
     nuevoNodo->dato = pDato;
@@ -52,7 +52,7 @@ void insertarLista(LinkedList*& pFrente, int pDato)
 }
 
 // Busca un dato en la lista y avisa si lo encontro o no
-void buscarLista(LinkedList* pFrente, int pDato)
+void buscarNodo(LinkedList* pFrente, int pDato)
 {
     LinkedList* nodoActual = pFrente;
     bool encontrado = false;
@@ -81,7 +81,7 @@ void buscarLista(LinkedList* pFrente, int pDato)
 }
 
 // Elimina un dato de la lista si existe
-void eliminarLista(LinkedList*& pFrente, int pDato)
+void eliminarNodo(LinkedList*& pFrente, int pDato)
 {
     LinkedList* nodoActual = pFrente;
     LinkedList* nodoAnterior = NULL;
@@ -210,17 +210,17 @@ int main()
         {
         case 1:
             leerEntero("Ingrese el dato a insertar: ", dato);
-            insertarLista(frente, dato);
+            insertarNodo(frente, dato);
             break;
 
         case 2:
             leerEntero("Ingrese el dato a buscar: ", dato);
-            buscarLista(frente, dato);
+            buscarNodo(frente, dato);
             break;
 
         case 3:
             leerEntero("Ingrese el dato a eliminar: ", dato);
-            eliminarLista(frente, dato);
+            eliminarNodo(frente, dato);
             break;
 
         case 4:
