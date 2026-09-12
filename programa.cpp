@@ -4,15 +4,14 @@ Grupo 1:
 - Alessandro Salamone - 1132116
 - Carlos Minaya - 1132836
 - Axel Almonte - 1131078
-- Octavio Ramírez - 1132995
-- José Pinales - 1133255
+- Octavio Ramirez - 1132995
+- Jose Pinales - 1133255
 - Christian Acosta - 1132698
 
 Realizar un programa C++ que simule una Lista Enlazada Cola (Linked List).
 */
 
 #include <iostream>
-#include <limits>
 #include <string>
 #include <conio.h>
 using namespace std;
@@ -22,23 +21,23 @@ struct LinkedList {
     LinkedList* next;
 };
 
-void insertarLista(LinkedList*& lista, int dato)
+void insertarLista(LinkedList*& pLista, int pDato)
 {
     LinkedList* nuevoNodo = new LinkedList();
-    nuevoNodo->dato = dato;
+    nuevoNodo->dato = pDato;
 
-    LinkedList* nodoActual = lista;
+    LinkedList* nodoActual = pLista;
     LinkedList* nodoAnterior = NULL;
 
-    while ((nodoActual != NULL) && (nodoActual->dato < dato))
+    while ((nodoActual != NULL) && (nodoActual->dato < pDato))
     {
         nodoAnterior = nodoActual;
         nodoActual = nodoActual->next;
     }
 
-    if (lista == nodoActual)
+    if (pLista == nodoActual)
     {
-        lista = nuevoNodo;
+        pLista = nuevoNodo;
     }
     else
     {
@@ -47,45 +46,47 @@ void insertarLista(LinkedList*& lista, int dato)
 
     nuevoNodo->next = nodoActual;
 
-    cout << "Se inserto el elemento " << dato << " a la lista.\n";
+    cout << "Se inserto el elemento " << pDato << " a la lista.\n";
+    cout << "\nPresione cualquier tecla para continuar...";
     _getch();
 }
 
-// Busca un dato en la lista y avisa si lo encontró o no
-void buscarLista(LinkedList* lista, int dato)
+// Busca un dato en la lista y avisa si lo encontro o no
+void buscarLista(LinkedList* pLista, int pDato)
 {
-    LinkedList* nodoActual = lista;
+    LinkedList* nodoActual = pLista;
     bool encontrado = false;
 
-    while (nodoActual != NULL)
+    while ((nodoActual != NULL) && (encontrado == false))
     {
-        if (nodoActual->dato == dato)
+        if (nodoActual->dato == pDato)
         {
             encontrado = true;
-            break;
         }
-        nodoActual = nodoActual->next;
+        else {
+            nodoActual = nodoActual->next;
+        }
     }
 
     if (encontrado)
     {
-        cout << "El elemento " << dato << " SI se encuentra en la lista.\n";
+        cout << "El elemento " << pDato << " SI se encuentra en la lista.\n";
     }
     else
     {
-        cout << "El elemento " << dato << " NO se encuentra en la lista.\n";
+        cout << "El elemento " << pDato << " NO se encuentra en la lista.\n";
     }
-
+    cout << "\nPresione cualquier tecla para continuar...";
     _getch();
 }
 
 // Elimina un dato de la lista si existe
-void eliminarLista(LinkedList*& lista, int dato)
+void eliminarLista(LinkedList*& pLista, int pDato)
 {
-    LinkedList* nodoActual = lista;
+    LinkedList* nodoActual = pLista;
     LinkedList* nodoAnterior = NULL;
 
-    while ((nodoActual != NULL) && (nodoActual->dato != dato))
+    while ((nodoActual != NULL) && (nodoActual->dato != pDato))
     {
         nodoAnterior = nodoActual;
         nodoActual = nodoActual->next;
@@ -93,13 +94,13 @@ void eliminarLista(LinkedList*& lista, int dato)
 
     if (nodoActual == NULL)
     {
-        cout << "El elemento " << dato << " no existe en la lista.\n";
+        cout << "El elemento " << pDato << " no existe en la lista.\n";
     }
     else
     {
-        if (lista == nodoActual)
+        if (pLista == nodoActual)
         {
-            lista = nodoActual->next;
+            pLista = nodoActual->next;
         }
         else
         {
@@ -107,23 +108,24 @@ void eliminarLista(LinkedList*& lista, int dato)
         }
 
         delete nodoActual;
-        cout << "Se elimino el elemento " << dato << " de la lista.\n";
+        cout << "Se elimino el elemento " << pDato << " de la lista.\n";
     }
-
+    cout << "\nPresione cualquier tecla para continuar...";
     _getch();
 }
 
-//Muestra los datos de la lista y si no hay nada dice que esta vacia
-void mostrarLista(LinkedList* lista)
+// Muestra los datos de la lista y si no hay nada dice que esta vacia
+void mostrarLista(LinkedList* pLista)
 {
-    if (lista == NULL)
+    if (pLista == NULL)
     {
         cout << "La lista esta vacia.\n";
+        cout << "\nPresione cualquier tecla para continuar...";
         _getch();
         return;
     }
 
-    LinkedList* nodoActual = lista;
+    LinkedList* nodoActual = pLista;
 
     cout << "Lista Enlazada: ";
     while (nodoActual != NULL)
@@ -135,32 +137,56 @@ void mostrarLista(LinkedList* lista)
         }
         nodoActual = nodoActual->next;
     }
-    cout << "\n";
-
+    cout << "\nPresione cualquier tecla para continuar...";
     _getch();
 }
 
-//Restriccion D. Las entradas de datos del usuario deben ser debidamente validas.
-//lee si realmente se esta introduciendo un entero
-int leerEntero(string mensaje)
+void limpiarConsola()
 {
-    int valor;
-    cout << mensaje;
-
-    while (!(cin >> valor))
-    {
-        cin.clear();
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
-        cout << "Entrada invalida. Por favor ingrese un numero entero: ";
-    }
-
-    // Limpiamos el resto del buffer por si el usuario escribio texto extra
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-    return valor;
+#ifdef _WIN32
+    system("cls");
+#else
+    system("clear");
+#endif
 }
 
-//Menu Principal
+// Restriccion D. Las entradas de datos del usuario deben ser debidamente validas.
+// Pide un entero por consola y NO deja continuar hasta que el usuario escriba
+// un numero entero valido (sin letras en ninguna parte de la entrada).
+// pDato se pasa por referencia para devolver el valor ya validado.
+void leerEntero(string mensaje, int& pDato)
+{
+    string datoString;
+    size_t position;
+    bool error;
+
+    do
+    {
+        try
+        {
+            cout << mensaje;
+            cin >> datoString;
+            pDato = stoi(datoString, &position);
+
+            if (datoString.length() != position)
+            {
+                error = true;
+                cout << "Entrada invalida, ingrese un numero entero\n" << endl;
+            }
+            else
+            {
+                error = false;
+            }
+        }
+        catch (const exception&)
+        {
+            error = true;
+            cout << "Entrada invalida, ingrese un numero entero\n" << endl;
+        }
+    } while (error);
+}
+
+// Menu Principal
 int main()
 {
     LinkedList* lista = NULL;
@@ -169,29 +195,31 @@ int main()
 
     do
     {
-        cout << "      MENU LISTA ENLAZADA (COLA)    \n";
+        limpiarConsola();
+        cout << "-----";
+        cout << "\nMENU LISTA ENLAZADA (COLA)\n";
         cout << "1. Insertar \n";
         cout << "2. Buscar \n";
         cout << "3. Eliminar \n";
         cout << "4. Mostrar Lista \n";
         cout << "5. Salir \n";
 
-        opcion = leerEntero("Seleccione una opcion: ");
+        leerEntero("Seleccione una opcion: ", opcion);
 
         switch (opcion)
         {
         case 1:
-            dato = leerEntero("Ingrese el dato a insertar: ");
+            leerEntero("Ingrese el dato a insertar: ", dato);
             insertarLista(lista, dato);
             break;
 
         case 2:
-            dato = leerEntero("Ingrese el dato a buscar: ");
+            leerEntero("Ingrese el dato a buscar: ", dato);
             buscarLista(lista, dato);
             break;
 
         case 3:
-            dato = leerEntero("Ingrese el dato a eliminar: ");
+            leerEntero("Ingrese el dato a eliminar: ", dato);
             eliminarLista(lista, dato);
             break;
 
@@ -206,8 +234,8 @@ int main()
         default:
             cout << "Opcion invalida. Intente de nuevo.\n";
             _getch();
+            break;
         }
-
     } while (opcion != 5);
 
     return 0;
